@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../dopy_manager/.idea/dopy_manager.iml" filepath="$PROJECT_DIR$/../dopy_manager/.idea/dopy_manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../dopy-manager/.idea/dopy-manager.iml" filepath="$PROJECT_DIR$/../dopy-manager/.idea/dopy-manager.iml" />
     </modules>
   </component>
 </project>
