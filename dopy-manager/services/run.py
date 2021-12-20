@@ -5,7 +5,8 @@ import os
 import asyncio
 import socket
 import re
-from pynput.keyboard import Key, Controller
+# from pynput.keyboard import Key, Controller
+import keyboard
 
 
 def escape_ansi(txt):
@@ -65,11 +66,19 @@ async def dashboard_handler(websocket, path, service):
 
 
 async def keyboard_handler(websocket, path):
+    # keyboard = Controller()
     async for key in websocket:
-        keyboard = Controller()
-        keyboard.press(key)
-        keyboard.release(key)
-        await websocket.send('wrote : ', key)
+        txt = str(key)
+        if len(txt) > 1:
+            if 'dopy_esc#' in txt:
+                esc = re.compile(r'dopy_esc#')
+                content = esc.sub('', txt)
+                keyboard.press_and_release(content)
+            else:
+                keyboard.write(key)
+        else:
+            keyboard.press_and_release(txt)
+        await websocket.send(txt)
         print('send !')
 
 
@@ -94,6 +103,13 @@ def webserver(service):
 
     asyncio.get_event_loop().run_forever()
 
+
+def stop():
+    asyncio.get_event_loop().call_soon_threadsafe(asyncio.get_event_loop().stop)
+
+
+def stop_vnc():
+    print('stopping VNC')
 
 
 def vncserver():

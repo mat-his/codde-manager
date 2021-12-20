@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=0.0.1
+Type=Application
+Name=Dopy Manager
+Comment=Dopy Manager allows to communicate with the Dopy application
+Exec=dopy-manager --run all
+Icon=/usr/share/icons/gnome/48x48/apps/file-manager.png
+Categories=Utility;
+Terminal=true
+# StartupNotify=true
+StartupWMClass=dopy-manager

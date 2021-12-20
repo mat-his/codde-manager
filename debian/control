@@ -1,0 +1,14 @@
+Source: dopy-manager
+Section: python, electronics, shell, web
+Priority: optional
+Maintainer: m-lecomte, <vm.lecomte@gmail.com>
+Build-Depends: debhelper (>= 7),
+Version: 0.0.1
+Standards-Version: 2.0.0
+
+Package: dopy-manager
+Architecture: all
+Section: python, electronics, shell, web
+Depends: python, ${misc:Depends}, ${python:Depends}
+Description: Dopy Manager app
+Dopy Manager allows to communicate with the Dopy application

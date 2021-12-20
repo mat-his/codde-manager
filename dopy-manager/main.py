@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import getopt
 import re
 import sys
 import argparse
@@ -14,15 +13,24 @@ import argparse
 from services import run, install
 
 
+def arg_checker(arg, msg):
+    if not arg:
+        print(msg)
+        exit(1)
+
+
 def main():
+    # todo: PRINT LICENSE
     parser = argparse.ArgumentParser()
     parser.add_argument('--install', '-i', dest='installation', type=str, help='install some services used with Dopy app')
     parser.add_argument('--run', '-r', dest='running', type=str, help='run some services used in Dopy app')
+    parser.add_argument('--user', '-u', dest='user', type=str, help='define which user will connect to VNC. required for setup remote desktop')
     parser.add_argument('--vncpwd', dest='vncpwd', type=str, help='define vnc password. required for setup remote desktop')
     parser.add_argument('--mysqlpwd', dest='mysqlpwd', type=str, help='define mysql password. required for setup guacamole service')
     parser.add_argument('--guacpwd', dest='guacpwd', type=str, help='define guacamole password. required for setup guacamole service')
     parser.add_argument('--display', '-d', dest='display', type=str, help='setup default VNC display number')
     parser.add_argument('--definition', '-def', dest='definition', type=str, help='setup default screen definition for VNC sessions')
+    parser.add_argument('--kill', '-k', dest='stop', type=str, help='setup default screen definition for VNC sessions')
     args = parser.parse_args()
 
     vncpwd = args.vncpwd if args.vncpwd else "raspberry"
@@ -37,12 +45,38 @@ def main():
             exit(1)
     if args.installation:
         if args.installation == 'guacamole':
+            if not args.user:
+                print('missing required argument [--user USER]')
+                exit(1)
+            user = args.user
             print('guacamole installation')
-            install.guacamole(vncpwd, mysqlpwd, guacpwd, display, definition)
-            # install.test(vncpwd, mysqlpwd, guacpwd, display, definition)
-    elif args.running:
-        if args.running == 'websockets':
+            install.guacamole(user, vncpwd, mysqlpwd, guacpwd, display, definition)
+        elif args.installation == 'test':
+            arg_checker(args.user, 'missing required argument [--user USER]')
+            user = args.user
+            install.test(user, vncpwd, mysqlpwd, guacpwd, display, definition)
+        if args.installation == 'dashboard':
+            arg_checker(args.user, 'missing required argument [--user USER]')
+            install.dashboard(args.user)
+        if args.installation == 'w-keyboard':
+            arg_checker(args.user, 'missing required argument [--user USER]')
+            install.w_keyboard(args.user)
+    if args.running:
+        if args.running == 'dashboard':
             print('starting websockets')
+            run.webserver('dashboard')
+        if args.running == 'w-keyboard':
+            print('w-keyboard')
+            run.webserver('w-keyboard')
+        else:  # all
+            run.webserver('all')
+    elif args.stop:
+        if args.stop == 'w-keyboard' or args.stop == 'dashboard':
+            run.stop()
+        elif args.stop == 'vncserver':
+            run.stop_vnc()
+        # else: do_something()
+
 
 if __name__ == "__main__":
     main()
