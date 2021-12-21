@@ -1,16 +1,17 @@
 #!/usr/bin/env python
-import re
-import sys
 import argparse
+import re
+
+import install
+import run
+# ANSI REGEX (python) = # r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]
+
 
 # TEMP = echo $(($(</sys/class/thermal/thermal_zone0/temp) / 1000))
 # TEMP = echo \$((\$(</sys/class/thermal/thermal_zone0/temp) / 1000))
 # MEM = free -m | grep Mem | awk '{print (\$3/\$2)*100 \"%\"}'
 # CPU = lscpu | awk '/CPU MHz/{if(\$NF+0>1000)printf \"%.3f GHz\\n\",\$NF/1000; else printf \"%.3f MHz\\n\",\$NF}'
 # DISK USAGE = df -h | grep /dev/root | awk '{print \$3 \"/\" \$2}'
-
-# ANSI REGEX (python) = # r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]'
-from services import run, install
 
 
 def arg_checker(arg, msg):
