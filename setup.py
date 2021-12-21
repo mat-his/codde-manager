@@ -2,19 +2,20 @@ import os
 from setuptools import setup
 
 setup(
-    name="dopy-manager",
+    name="dopymanager",
     version="0.0.1",
     author="Mathis Lecomte",
     author_email="vm.lecomte@gmail.com",
-    description="Dopy Manager allows to communicate with the Dopy application",
+    description="Dopy Manager",
+    long_description=open('README.md').read(),
     license="Creative Commons by-nc-nd 4.0",
     url="https://dopy.tech",
-    packages=['dopy-manager'],
+    packages=['dopymanager'],
     entry_points={
-        'console_scripts': ['dopy-manager=dopy-manager.main:main']
+        'console_scripts': ['dopymanager=dopymanager.main:main']
     },
     data_files=[
-        ('share/applications/', ['dopy-manager.desktop'])
+        ('share/applications/', ['dopymanager.desktop'])
         # icon
     ],
     classifiers=[

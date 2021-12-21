@@ -121,14 +121,14 @@ def guacamole(user, vncpwd="raspberry", mysqlpwd="S3cur3Pa$$w0rd", guacpwd="P@s$
     os.system(f"chmod 0600 /home/{user}/.vnc/passwd")
     print('vnc password created')
     print('\n== VNC SERVER AS SERVICE ==\n')
-    out_vnc = open("/lib/systemd/system/dopy-manager-vncserver@.service", "w")
+    out_vnc = open("/lib/systemd/system/dopymanager-vncserver@.service", "w")
     out_vnc.writelines(vnc_service_file(user, definition))
     out_vnc.close()
     os.system(f"vncserver -kill {display}")
     os.system("systemctl daemon-reload")
-    os.system(f"sudo systemctl start dopy-manager-vncserver@{display}.service")
-    os.system(f"sudo systemctl enable dopy-manager-vncserver@{display}.service")
-    os.system(f"sudo systemctl status dopy-manager-vncserver@{display}.service --no-pager --full")
+    os.system(f"sudo systemctl start dopymanager-vncserver@{display}.service")
+    os.system(f"sudo systemctl enable dopymanager-vncserver@{display}.service")
+    os.system(f"sudo systemctl status dopymanager-vncserver@{display}.service --no-pager --full")
     os.system("sudo ss -lnpt | grep vnc")
 
 
@@ -151,12 +151,12 @@ def test(user, vncpasswd="raspberry", mysqlpasswd="S3cur3Pa$$w0rd", guacpasswd="
 
 
 def create_service(service_name, path, desc, start, stop, user='', pre='', post=''):
-    out_vnc = open(f"dopy-manager-{path}{service_name}.service", "w")
+    out_vnc = open(f"dopymanager-{path}{service_name}.service", "w")
     line_pre = f"ExecStartPre={pre}" if pre else ''
     line_post = f"ExecStartPost={post}" if post else ''
     line_user = f"User={user}" if user else ''
     # todo: LICENSE
-    # WorkingDirectory=/usr/share/dopy-manager/
+    # WorkingDirectory=/usr/share/dopymanager/
     lines = f"""[Unit]
 Description={desc}
 After=syslog.target network.target
@@ -164,7 +164,7 @@ After=syslog.target network.target
 [Service]
 {line_user}
 Type=notify
-ConditionPathExists=/usr/bin/dopy-manager
+ConditionPathExists=/usr/bin/dopymanager
 
 {line_pre}
 ExecStart={start}
@@ -179,9 +179,9 @@ WantedBy=multi-user.target"""
     out_vnc.writelines(lines)
     out_vnc.close()
     os.system("systemctl daemon-reload")
-    os.system(f"sudo systemctl start dopy-manager-{service_name}.service")
-    os.system(f"sudo systemctl enable dopy-manager-{service_name}.service")
-    os.system(f"sudo systemctl status dopy-manager-{service_name}.service --no-pager --full")
+    os.system(f"sudo systemctl start dopymanager-{service_name}.service")
+    os.system(f"sudo systemctl enable dopymanager-{service_name}.service")
+    os.system(f"sudo systemctl status dopymanager-{service_name}.service --no-pager --full")
 
 
 def dashboard(username):
@@ -190,8 +190,8 @@ def dashboard(username):
         "dashboard",
         "/lib/systemd/system/",
         "Send realtime dashboard data about computer state to Dopy app",
-        start="/usr/bin/dopy-manager -r dashboard",
-        stop="/usr/bin/dopy-manager -k dashboard"
+        start="/usr/bin/dopymanager -r dashboard",
+        stop="/usr/bin/dopymanager -k dashboard"
     )"""
 
 
@@ -201,7 +201,7 @@ def w_keyboard(username):
         "w-keyboard",
         "/lib/systemd/system/",
         "Send keyboard keys inputs from Dopy app to this computer",
-        start="/usr/bin/dopy-manager -r w-keyboard",
-        stop="/usr/bin/dopy-manager -k w-keyboard",
+        start="/usr/bin/dopymanager -r w-keyboard",
+        stop="/usr/bin/dopymanager -k w-keyboard",
         user="root",
     )"""

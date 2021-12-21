@@ -1,5 +1,5 @@
-PACKAGE (0.0.1) UNRELEASED; urgency=medium
+dopymanager (0.0.1) debian; urgency=medium
 
   * Initial release. (Closes: #XXXXXX)
 
- -- m-lecomte <vm.lecomte@gmail.com>  Mon, 20 Dec 2021 10:11:07 +0100
+ -- Mathis Lecomte <vm.lecomte@gmail.com>  Mon, 20 Dec 2021 10:11:07 +0100
