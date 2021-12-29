@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="dopymanager",
-    version="0.0.1",
+    version="0.0.2",
     author="Mathis Lecomte",
     author_email="vm.lecomte@gmail.com",
     description="Dopy Manager",
@@ -19,6 +19,7 @@ setup(
         # icon
     ],
     classifiers=[
+        "Copyright :: Copyright (c) 2021 Mathis Lecomte"
         "License :: Creative Commons by-nc-nd 4.0",
     ],
 )

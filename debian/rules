@@ -5,5 +5,5 @@ DH_VERBOSE = 1
 	dh $@ --with python3 --buildsystem=pybuild
 
 NAME=dopymanager
-VERSION=0.0.1
+VERSION=0.0.2
 DESTDIR=$(CURDIR)/debian/$(NAME)/

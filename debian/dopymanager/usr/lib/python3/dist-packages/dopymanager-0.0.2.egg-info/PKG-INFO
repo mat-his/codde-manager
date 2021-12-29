@@ -1,0 +1,14 @@
+Metadata-Version: 1.1
+Name: dopymanager
+Version: 0.0.2
+Summary: Dopy Manager
+Home-page: https://dopy.tech
+Author: Mathis Lecomte
+Author-email: vm.lecomte@gmail.com
+License: Creative Commons by-nc-nd 4.0
+Description: # Dopy Manager
+        
+        Dopy Manager allows to communicate with the Dopy mobile app.
+        See the official webpage and report a bug on [dopy.tech](https://dopy.tech)
+Platform: UNKNOWN
+Classifier: Copyright :: Copyright (c) 2021 Mathis LecomteLicense :: Creative Commons by-nc-nd 4.0

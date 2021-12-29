@@ -1,0 +1,14 @@
+123ba7f0b07e7d0971eaa01142a8b148  usr/bin/dopymanager
+d9377ffe889a6c23f73b4d1bbbfe0e79  usr/lib/python3/dist-packages/dopymanager-0.0.2.egg-info/PKG-INFO
+68b329da9893e34099c7d8ad5cb9c940  usr/lib/python3/dist-packages/dopymanager-0.0.2.egg-info/dependency_links.txt
+648fbd47eb184965e73b8e90ecbb1f92  usr/lib/python3/dist-packages/dopymanager-0.0.2.egg-info/entry_points.txt
+9967dfe17098a4e72282cd3848e68468  usr/lib/python3/dist-packages/dopymanager-0.0.2.egg-info/top_level.txt
+d41d8cd98f00b204e9800998ecf8427e  usr/lib/python3/dist-packages/dopymanager/__init__.py
+93a49f31faa9d830f28a49f48c5b3507  usr/lib/python3/dist-packages/dopymanager/install.py
+21e13af634ad9ef7f3a574055c76123d  usr/lib/python3/dist-packages/dopymanager/main.py
+bf8788a0488830e13c2050897873bc02  usr/lib/python3/dist-packages/dopymanager/run.py
+b04e68fffac5f031c6c3de4671871b76  usr/lib/python3/dist-packages/dopymanager/term_colors.py
+e0e579bdcd27c9e53db76a5b102ad792  usr/share/applications/dopymanager.desktop
+088c23203c62a18cb19d2d3508525bb8  usr/share/doc/dopymanager/README.Debian
+59ef2a62b2ffd416b388f82d3a3b02c4  usr/share/doc/dopymanager/changelog.gz
+ef3f1da098380dc70b1d954029bed1bd  usr/share/doc/dopymanager/copyright

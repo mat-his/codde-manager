@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Tue, 28 Dec 2021 10:11:07 +0100
+Source: dopymanager
+Binary: dopymanager
+Built-For-Profiles: noudeb
+Architecture: amd64
+Version: 0.0.2
+Distribution: debian
+Urgency: medium
+Maintainer: "Mathis Lecomte", <vm.lecomte@gmail.com>
+Changed-By: Mathis Lecomte <vm.lecomte@gmail.com>
+Description:
+ dopymanager - Dopy Manager
+Changes:
+ dopymanager (0.0.2) debian; urgency=medium
+ .
+   * Initial release. (Closes: #XXXXXX)
+Checksums-Sha1:
+ daef03aa788e67576843b24a55e3ca7d102426c8 55132 dopymanager_0.0.2_amd64.buildinfo
+ 00289efbfbcee0519132c3dcdb6ba453d230af01 8540 dopymanager_0.0.2_amd64.deb
+Checksums-Sha256:
+ a50cb2acd225ff09ca0e5431f8b10e39f6369b3a5418716c2de88e571dd463c9 55132 dopymanager_0.0.2_amd64.buildinfo
+ a95da74f8da2bbb2067615bd93ef33a77213f0db817c287abd858abe3bf2faa2 8540 dopymanager_0.0.2_amd64.deb
+Files:
+ 776be38d96f4692d9af58f72d6d2140d 55132 web optional dopymanager_0.0.2_amd64.buildinfo
+ e92937016cd0298ea3768c464c02cbec 8540 web optional dopymanager_0.0.2_amd64.deb
