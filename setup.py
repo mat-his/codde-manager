@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="dopymanager",
@@ -10,7 +10,7 @@ setup(
     long_description=open('README.md').read(),
     license="Creative Commons by-nc-nd 4.0",
     url="https://dopy.tech",
-    packages=['dopymanager'],
+    packages=find_packages(),  # ['dopymanager'],
     entry_points={
         'console_scripts': ['dopymanager=dopymanager.main:main']
     },

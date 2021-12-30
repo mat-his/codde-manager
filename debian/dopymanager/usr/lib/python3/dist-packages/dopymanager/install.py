@@ -107,8 +107,6 @@ def guacamole(user, vncpwd="raspberry", mysqlpwd="S3cur3Pa$$w0rd", guacpwd="P@s$
     
     vncserver(user, vncpwd, display, definition)
 
-    
-
 
 def vncserver(user, vncpwd, display, definition):
     print('\n== VNCSERVER SERVICE INSTALLATION ==\n')
