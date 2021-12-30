@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import argparse
 import re
+from dopymanager.exc import install, run
 
-import install
-import run
+
 # ANSI REGEX (python) = # r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]
 
 

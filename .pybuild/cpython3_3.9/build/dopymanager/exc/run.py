@@ -7,7 +7,6 @@ import socket
 import re
 # from pynput.keyboard import Key, Controller
 import keyboard
-import daemon
 import subprocess
 import sys
 import traceback

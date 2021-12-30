@@ -1,11 +1,10 @@
 import os
 import subprocess
-
-from term_colors import TermColors as Colors
+from dopymanager.utils.term_colors import TermColors as Colors
 
 guacamole_properties = """# Hostname and port of guacamole proxy
 guacd-hostname: localhost
-guacd-port:     4822
+guacd-port: 4822
 
 # Auth provider class (authenticates user/pass combination, needed if using the provided login screen)
 auth-provider: net.sourceforge.guacamole.net.basic.BasicFileAuthenticationProvider

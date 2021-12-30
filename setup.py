@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dopymanager",
-    version="0.0.2",
+    version="0.0.3",
     author="Mathis Lecomte",
     author_email="vm.lecomte@gmail.com",
     description="Dopy Manager",
