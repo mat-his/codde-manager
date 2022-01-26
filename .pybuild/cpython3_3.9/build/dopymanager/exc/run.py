@@ -118,18 +118,18 @@ def webserver(service):
     async def serve(choice):
         if choice == 'dashboard':
             # print('dashboard')
-            # todo: si 7450 n'est pas déja utilisé. sinon print "impossible de démarrer le service"
+            # todo: si 7450 n'est pas déja utilisé. sinon print impossible de démarrer le service
             async with websockets.serve(dashboard_handler, sockname, 7450):
                 print('listening')
                 await asyncio.Future()
         elif choice == 'w-keyboard':
             # print('choice == w-keyboard')
-            # todo: si 8160 n'est pas déja utilisé. sinon print "impossible de démarrer le service"
+            # todo: si 8160 n'est pas déja utilisé. sinon print impossible de démarrer le service
             async with websockets.serve(keyboard_handler, sockname, 8160):
                 print('listening')
                 await asyncio.Future()
         else:  # all
-            # todo: si 7450 et 8160 n'est pas déja utilisé. sinon print "impossible de démarrer le service"
+            # todo: si 7450 et 8160 n'est pas déja utilisé. sinon print impossible de démarrer le service
             async with websockets.serve(dashboard_handler, sockname, 7450):
                 await asyncio.Future()
             async with websockets.serve(keyboard_handler, sockname, 8160):
@@ -144,11 +144,12 @@ def stop(service):
     print('E: do not stop process with this method')
 
 
-def stop_vnc():
-    print('not yet implemented')
+def stop_vnc(display):
+    print(f"kill {display}")
+    os.system(f"vncserver -kill {display}")
 
 
-def vncserver():
-    return os.popen(
-        "x11vnc -display :0 -clip 1920x1080+1600+0 -autoport -localhost rfbauth /home/pi/.vnc_passwd -nopw -bg -o /var/log/x11vnc.log -xkb -ncache 0 -ncache_cr -quiet -forever").read().strip()
-# todo: remplacer par systemctl start x11vnc@2.service
+def vncserver(definition="1200x800", display=":1"):
+    os.system(f"vncserver -depth 24 -geometry {definition} -localhost {display}")
+# "x11vnc -display :0 -clip 1920x1080+1600+0 -autoport -localhost rfbauth /home/pi/.vnc_passwd -nopw -bg -o
+# /var/log/x11vnc.log -xkb -ncache 0 -ncache_cr -quiet -forever")

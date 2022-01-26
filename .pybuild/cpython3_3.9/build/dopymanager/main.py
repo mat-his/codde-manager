@@ -71,14 +71,17 @@ def main():
         if args.running == 'w-keyboard':
             print('w-keyboard')
             run.webserver('w-keyboard')
+        if args.running == 'vncserver':
+            print('vncserver')
+            run.vncserver(definition, display)
         else:  # all
             run.webserver('all')
     elif args.stop:
         if args.stop == 'w-keyboard' or args.stop == 'dashboard':
             run.stop(args.stop)
         elif args.stop == 'vncserver':
-            run.stop_vnc()
-        # else: do_something()
+            run.stop_vnc(display)
+        # else: do_something() # kill all ?
 
 
 if __name__ == "__main__":

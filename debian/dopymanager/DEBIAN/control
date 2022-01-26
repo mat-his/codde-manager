@@ -1,8 +1,8 @@
 Package: dopymanager
-Version: 0.0.3
+Version: 0.0.4
 Architecture: amd64
 Maintainer: "Mathis Lecomte", <vm.lecomte@gmail.com>
-Installed-Size: 48
+Installed-Size: 49
 Depends: python3, python3:any
 Section: web
 Priority: optional

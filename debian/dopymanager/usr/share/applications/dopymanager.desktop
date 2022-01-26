@@ -1,11 +1,11 @@
 [Desktop Entry]
-Version=0.0.3
+Version=0.0.4
 Type=Application
 Name=Dopy Manager
-Comment=Dopy Manager allows to communicate with the Dopy application
+Comment=Dopy Manager allows SBCs to communicate with the Dopy mobile application.
 Exec=dopymanager --run all
-Icon=/usr/share/icons/gnome/48x48/apps/file-manager.png
+Icon=/usr/share/dopymanager/dopy_logo.png
 Categories=Utility;
 Terminal=true
 # StartupNotify=true
-StartupWMClass=dopy-manager
+StartupWMClass=dopymanager
