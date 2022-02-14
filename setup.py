@@ -2,20 +2,20 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name="dopymanager",
+    name="codde manager",
     version="0.0.4",
     author="Mathis Lecomte",
     author_email="vm.lecomte@gmail.com",
-    description="Dopy Manager",
+    description="CODDE Manager",
     long_description=open('README.md').read(),
     license="Creative Commons by-nc-nd 4.0",
-    url="https://dopy.tech",
-    packages=find_packages(),  # ['dopymanager'],
+    url="https://codde-pi.com/documentation",
+    packages=find_packages(),  # ['coddemanager'],
     entry_points={
-        'console_scripts': ['dopymanager=dopymanager.main:main']
+        'console_scripts': ['coddemanager=coddemanager.main:main']
     },
     data_files=[
-        ('share/applications/', ['dopymanager.desktop'])
+        ('share/applications/', ['coddemanager.desktop'])
         # icon
     ],
     classifiers=[

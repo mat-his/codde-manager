@@ -1,14 +1,14 @@
-Source: dopymanager
+Source: coddemanager
 Section: web
 Priority: optional
 Maintainer: "Mathis Lecomte", <vm.lecomte@gmail.com>
-Homepage: https://dopy.tech
+Homepage: https://codde-pi.com
 Build-Depends: debhelper (>= 12), dh-python, python3-all
 XS-Python-Version: 3.9
 Standards-Version: 3.0.0
 
-Package: dopymanager
+Package: coddemanager
 Architecture: any
 Depends: python3, ${misc:Depends}, ${python3:Depends}
-Description: Dopy Manager
- Dopy Manager allows to communicate with the Dopy application
+Description: CODDE Manager
+ CODDE Manager allows to communicate with the CODDE Pi application

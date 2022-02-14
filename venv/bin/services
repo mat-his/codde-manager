@@ -1,4 +1,4 @@
-#!/home/lecomte/Projects/dopy_tech/dopymanager/venv/bin/python
+#!/home/lecomte/Projects/dopy_tech/coddemanager/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

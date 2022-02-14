@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=0.0.4
+Type=Application
+Name=CODDE Manager
+Comment=CODDE Manager allows SBCs to communicate with the CODDE Pi mobile application.
+Exec=coddemanager --run all
+Icon=/usr/share/coddemanager/codde_pi_logo.png
+Categories=Utility;
+Terminal=true
+# StartupNotify=true
+StartupWMClass=dopymanager

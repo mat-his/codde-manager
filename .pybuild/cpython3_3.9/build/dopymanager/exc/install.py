@@ -124,14 +124,14 @@ def vncserver(user, vncpwd, display, definition):
     os.system(f"chmod 0600 /home/{user}/.vnc/passwd")
     print('vnc password created')
     print('\n== VNC SERVER AS SERVICE ==\n')
-    out_vnc = open("/lib/systemd/system/dopymanager-vncserver@.service", "w")
+    out_vnc = open("/lib/systemd/system/coddemanager-vncserver@.service", "w")
     out_vnc.writelines(vnc_service_file(user, definition))
     out_vnc.close()
     os.system(f"vncserver -kill {display}")
     os.system("systemctl daemon-reload")
-    os.system(f"sudo systemctl start dopymanager-vncserver@{display}.service")
-    os.system(f"sudo systemctl enable dopymanager-vncserver@{display}.service")
-    os.system(f"sudo systemctl status dopymanager-vncserver@{display}.service --no-pager --full")
+    os.system(f"sudo systemctl start coddemanager-vncserver@{display}.service")
+    os.system(f"sudo systemctl enable coddemanager-vncserver@{display}.service")
+    os.system(f"sudo systemctl status coddemanager-vncserver@{display}.service --no-pager --full")
     os.system("sudo ss -lnpt | grep vnc")
 
 
@@ -150,13 +150,13 @@ def test(user, vncpasswd="raspberry", mysqlpasswd="S3cur3Pa$$w0rd", guacpasswd="
 
 
 def create_service(service_name, path, desc, start, stop='', user='', pre='', post=''):
-    out_vnc = open(f"{path}dopymanager-{service_name}.service", "w")
+    out_vnc = open(f"{path}coddemanager-{service_name}.service", "w")
     line_pre = f"ExecStartPre={pre}" if pre else ''
     line_post = f"ExecStartPost={post}" if post else ''
     line_user = f"User={user}" if user else ''
     line_stop = f"ExecStop={stop}" if stop else ''
     # todo: LICENSE
-    # WorkingDirectory=/usr/share/dopymanager/
+    # WorkingDirectory=/usr/share/coddemanager/
     lines = f"""[Unit]
 Description={desc}
 After=syslog.target network.target
@@ -179,9 +179,9 @@ WantedBy=multi-user.target"""
     out_vnc.writelines(lines)
     out_vnc.close()
     os.system("systemctl daemon-reload")
-    os.system(f"sudo systemctl start dopymanager-{service_name}.service")
-    os.system(f"sudo systemctl enable dopymanager-{service_name}.service")
-    os.system(f"sudo systemctl status dopymanager-{service_name}.service --no-pager --full")
+    os.system(f"sudo systemctl start coddemanager-{service_name}.service")
+    os.system(f"sudo systemctl enable coddemanager-{service_name}.service")
+    os.system(f"sudo systemctl status coddemanager-{service_name}.service --no-pager --full")
     
     
 def crontask(cmd):
@@ -204,9 +204,9 @@ def dashboard(username):
         "dashboard",
         "/lib/systemd/system/",
         "Dopy Manager - dashboard",
-        start="/usr/bin/dopymanager -r dashboard"
+        start="/usr/bin/coddemanager -r dashboard"
     )
-    # crontask("python /home/pi/dopymanager/main.py -r dashboard")  # todo: remplacer par vrai script
+    # crontask("python /home/pi/coddemanager/main.py -r dashboard")  # todo: remplacer par vrai script
 
 
 def w_keyboard(username):
@@ -215,6 +215,6 @@ def w_keyboard(username):
         "w-keyboard",
         "/lib/systemd/system/",
         "Dopy manager - wireless keyboard",
-        start="/usr/bin/dopymanager -r w-keyboard"
+        start="/usr/bin/coddemanager -r w-keyboard"
     )
-    # crontask("python /home/pi/dopymanager/main.py -r w-keyboard")
+    # crontask("python /home/pi/coddemanager/main.py -r w-keyboard")
