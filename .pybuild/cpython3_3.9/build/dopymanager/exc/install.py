@@ -1,6 +1,6 @@
 import os
 import subprocess
-from dopymanager.utils.term_colors import TermColors as Colors
+from coddemanager.utils.term_colors import TermColors as Colors
 
 guacamole_properties = """# Hostname and port of guacamole proxy
 guacd-hostname: localhost

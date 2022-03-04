@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name="codde manager",
+    name="codde_manager",
     version="0.0.4",
     author="Mathis Lecomte",
     author_email="vm.lecomte@gmail.com",
@@ -19,7 +19,7 @@ setup(
         # icon
     ],
     classifiers=[
-        "Copyright :: Copyright (c) 2021 Mathis Lecomte"
+        "Copyright :: Copyright (c) 2022 Mathis Lecomte"
         "License :: Creative Commons by-nc-nd 4.0",
     ],
 )

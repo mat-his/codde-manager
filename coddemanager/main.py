@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import re
-from dopymanager.exc import install, run
+from coddemanager.exc import install, run
 
 
 # ANSI REGEX (python) = # r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]
@@ -23,8 +23,8 @@ def arg_checker(arg, msg):
 def main():
     # todo: PRINT LICENSE
     parser = argparse.ArgumentParser()
-    parser.add_argument('--install', '-i', dest='installation', type=str, help='install some services used with Dopy app')
-    parser.add_argument('--run', '-r', dest='running', type=str, help='run some services used in Dopy app')
+    parser.add_argument('--install', '-i', dest='installation', type=str, help='install some services used with CODDE Pi app')
+    parser.add_argument('--run', '-r', dest='running', type=str, help='run some services used in CODDE Pi app')
     parser.add_argument('--user', '-u', dest='user', type=str, help='define which user will connect to VNC. required for setup remote desktop')
     parser.add_argument('--vncpwd', dest='vncpwd', type=str, help='define vnc password. required for setup remote desktop')
     parser.add_argument('--mysqlpwd', dest='mysqlpwd', type=str, help='define mysql password. required for setup guacamole service')

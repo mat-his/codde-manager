@@ -1,6 +1,6 @@
 import os
 import subprocess
-from dopymanager.utils.term_colors import TermColors as Colors
+from coddemanager.utils.term_colors import TermColors as Colors
 
 guacamole_properties = """# Hostname and port of guacamole proxy
 guacd-hostname: localhost
@@ -29,7 +29,7 @@ def user_mapping_file(user, encrypted_passwd, default_passwd):
          password="{encrypted_passwd}"
          encoding="md5">
       
-       <connection name="dopy_session">
+       <connection name="codde_session">
          <protocol>vnc</protocol>
          <param name="hostname">localhost</param>
          <param name="port">5901</param>
@@ -188,14 +188,14 @@ def crontask(cmd):
     if not 'crontab' in os.popen('ls /etc/ | grep crontab').read():
         print('Installing crontab')
         os.system('sudo apt install cron')
-    if 'no crontab' in os.popen('sudo crontab -l > /tmp/dopymanager_tmp_cron').read():
+    if 'no crontab' in os.popen('sudo crontab -l > /tmp/coddemanager_tmp_cron').read():
         print('sudo crontab comments will be erased')
-    os.system('cat /tmp/dopymanager_tmp_cron')
-    os.system('sed -e "s/^M//" /tmp/dopymanager_tmp_cron')
-    out = open("/tmp/dopymanager_tmp_cron", "a")
+    os.system('cat /tmp/coddemanager_tmp_cron')
+    os.system('sed -e "s/^M//" /tmp/coddemanager_tmp_cron')
+    out = open("/tmp/coddemanager_tmp_cron", "a")
     out.write('@reboot ' + cmd.strip() + '\n')
     out.close()
-    os.system('sudo crontab /tmp/dopymanager_tmp_cron')
+    os.system('sudo crontab /tmp/coddemanager_tmp_cron')
 
 
 def dashboard(username):
@@ -203,7 +203,7 @@ def dashboard(username):
     create_service(
         "dashboard",
         "/lib/systemd/system/",
-        "Dopy Manager - dashboard",
+        "CODDE Manager - dashboard",
         start="/usr/bin/coddemanager -r dashboard"
     )
     # crontask("python /home/pi/coddemanager/main.py -r dashboard")  # todo: remplacer par vrai script
@@ -214,7 +214,7 @@ def w_keyboard(username):
     create_service(
         "w-keyboard",
         "/lib/systemd/system/",
-        "Dopy manager - wireless keyboard",
+        "CODDE manager - wireless keyboard",
         start="/usr/bin/coddemanager -r w-keyboard"
     )
     # crontask("python /home/pi/coddemanager/main.py -r w-keyboard")
