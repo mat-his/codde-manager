@@ -17,7 +17,6 @@ on:
     workflows: [ "CODDE Manager Build" ]
     types:
       - completed
-  push:
     branches:
       - main
 
@@ -60,12 +59,17 @@ jobs:
       run: |
         echo "DESCRIPTION=$(sed -n '2{p;q}' README.md)" >> $GITHUB_ENV
     - name: Apt Update
-      run: gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="sudo apt update"
+      run: |
+        gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="sudo apt update"
     - name: Check Artifact Registery
-      run: gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="echo 'deb ar+https://$INSTANCE_LOCATION-apt.pkg.dev/projects/$PROJECT_ID $REPO main' | sudo tee -a  /etc/apt/sources.list.d/artifact-registry.list"
+      run: |
+        gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="echo 'deb ar+https://$INSTANCE_LOCATION-apt.pkg.dev/projects/$PROJECT_ID $REPO main' | sudo tee -a  /etc/apt/sources.list.d/artifact-registry.list"
     - name: Upload deb package
-      run: gcloud compute scp /dist/codde-manager_$VERSION_armhf.deb $INSTANCE:~
+      run: |
+        gcloud compute scp /dist/codde-manager_$VERSION_armhf.deb $INSTANCE:~
     - name: Upload Repo
-      run: gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="gcloud beta artifacts apt upload $REPO --location=$REPO_LOCATION --source=codde-manager_$VERSION_armhf.deb"
+      run: |
+        gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="gcloud beta artifacts apt upload $REPO --location=$REPO_LOCATION --source=codde-manager_$VERSION_armhf.deb"
     - name: Update
-      run: gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="sudo apt update"
+      run: |
+        gcloud compute ssh $INSTANCE --zone=$INSTANCE_ZONE --command="sudo apt update"
