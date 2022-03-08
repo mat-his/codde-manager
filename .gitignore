@@ -6,4 +6,4 @@
 /dist/
 /coddemanager.egg-info/
 /.idea/
-/.gitignore
+/.src/

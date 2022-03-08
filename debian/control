@@ -1,4 +1,4 @@
-Source: coddemanager
+Source: codde_manager
 Section: web
 Priority: optional
 Maintainer: "Mathis Lecomte", <vm.lecomte@gmail.com>
@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 12), dh-python, python3-all
 XS-Python-Version: 3.9
 Standards-Version: 3.0.0
 
-Package: coddemanager
+Package: codde-manager
 Architecture: any
 Depends: python3, ${misc:Depends}, ${python3:Depends}
 Description: CODDE Manager

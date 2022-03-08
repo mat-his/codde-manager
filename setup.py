@@ -1,9 +1,11 @@
 import os
 from setuptools import setup, find_packages
+import codecs
+import os.path
 
 setup(
     name="codde_manager",
-    version="0.0.4",
+    version=open(os.path.join('/', 'VERSION')).read().strip(),
     author="Mathis Lecomte",
     author_email="vm.lecomte@gmail.com",
     description="CODDE Manager",

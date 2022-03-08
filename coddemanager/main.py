@@ -1,8 +1,6 @@
-#!/usr/bin/env python
 import argparse
 import re
 from coddemanager.exc import install, run
-
 
 # ANSI REGEX (python) = # r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]
 
