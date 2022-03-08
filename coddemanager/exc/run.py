@@ -1,3 +1,4 @@
+import errno
 import json
 import time
 import websockets
@@ -118,18 +119,21 @@ def webserver(service):
     async def serve(choice):
         if choice == 'dashboard':
             # print('dashboard')
-            # todo: si 7450 n'est pas déja utilisé. sinon print impossible de démarrer le service
+            is_port_in_use(s, 7450)
+
             async with websockets.serve(dashboard_handler, sockname, 7450):
                 print('listening')
                 await asyncio.Future()
         elif choice == 'w-keyboard':
             # print('choice == w-keyboard')
-            # todo: si 8160 n'est pas déja utilisé. sinon print impossible de démarrer le service
+            is_port_in_use(s, 8160)
+
             async with websockets.serve(keyboard_handler, sockname, 8160):
                 print('listening')
                 await asyncio.Future()
         else:  # all
-            # todo: si 7450 et 8160 n'est pas déja utilisé. sinon print impossible de démarrer le service
+            is_port_in_use(s, 7450)
+            is_port_in_use(s, 8160)
             async with websockets.serve(dashboard_handler, sockname, 7450):
                 await asyncio.Future()
             async with websockets.serve(keyboard_handler, sockname, 8160):
@@ -153,3 +157,16 @@ def vncserver(definition="1200x800", display=":1"):
     os.system(f"vncserver -depth 24 -geometry {definition} -localhost {display}")
 # "x11vnc -display :0 -clip 1920x1080+1600+0 -autoport -localhost rfbauth /home/pi/.vnc_passwd -nopw -bg -o
 # /var/log/x11vnc.log -xkb -ncache 0 -ncache_cr -quiet -forever")
+
+
+def is_port_in_use(s, port: int):
+    try:
+        s.bind(("127.0.0.1", port))
+    except socket.error as e:
+        if e.errno == errno.EADDRINUSE:
+            print(f"Port ${port} is already in use by a service. "
+                  f"\nYou should run 'netstat -ltnup | grep 127.0.0.1:${port}' to identify it.")
+        else:
+            # something else raised the socket.error exception
+            print(e)
+        exit(1)

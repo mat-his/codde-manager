@@ -1,5 +1,6 @@
 import os
 import subprocess
+
 from coddemanager.utils.term_colors import TermColors as Colors
 
 guacamole_properties = """# Hostname and port of guacamole proxy
@@ -10,17 +11,36 @@ guacd-port: 4822
 auth-provider: net.sourceforge.guacamole.net.basic.BasicFileAuthenticationProvider
 basic-user-mapping: /etc/guacamole/user-mapping.xml"""
 
+
 # on some distribution, service unit path isn't lib but usr
 
 
-def package_check(args):
+def package_check(args) -> bool:
+    """Check if package exist in the system.
+
+    Args:
+        args: Package in question.
+
+    Returns: True if package is already installed.
+
+    """
     devnull = open(os.devnull, "w")
     retval = subprocess.call(args, stdout=devnull, stderr=subprocess.STDOUT)
     devnull.close()
     return retval == 0
 
 
-def user_mapping_file(user, encrypted_passwd, default_passwd):
+def user_mapping_file(user: str, encrypted_passwd: str, default_passwd: str) -> str:
+    """
+    User Mapping file template.
+
+    Returns: Completed User mapping file with custom credentials.
+
+    Args:
+        user (str): Name of user authorized to use vnc session.
+        encrypted_passwd (str): New encrypted password.
+        default_passwd (str): New default passwd."""
+
     return f"""<user-mapping>
 
     <!-- Per-user authentication and config information -->
@@ -41,8 +61,17 @@ def user_mapping_file(user, encrypted_passwd, default_passwd):
 </user-mapping>"""
 
 
-def vnc_service_file(user, definition):  # todo: user !!!
+def vnc_service_file(definition: str) -> str:
     # username = user  # os.popen("whoami").read().strip()
+    """System Service file template.
+
+    Args:
+        definition: Specify the VNC display definition.
+
+    Returns:
+        Completed VNC system service file with custom parameters.
+    """
+
     return f"""[Unit]
 Description=a wrapper to launch an X server for VNC
 After=syslog.target network.target
@@ -58,8 +87,22 @@ ExecStop=/usr/bin/vncserver -kill :%i
 WantedBy=multi-user.target"""
 
 
-def guacamole(user, vncpwd="raspberry", mysqlpwd="S3cur3Pa$$w0rd", guacpwd="P@s$W0rD", display=':1',
+def guacamole(user: str, vncpwd="raspberry", mysqlpwd="S3cur3Pa$$w0rd", guacpwd="P@s$W0rD", display=':1',
               definition='1200x800'):
+    """Steps to install Guacamole service automatically and perform user customizations.
+
+    Args:
+        user: User which use guacamole configuration.
+        vncpwd: Password for VNC session.
+        mysqlpwd: Password for MySQL server.
+        guacpwd: Password required by the Guacamole's installation.
+        display: Display identifier (e.g :1).
+        definition: Definition of the display.
+
+    Returns:
+        None.
+    """
+
     print('guacamole installation and connection setup')
 
     if not package_check(['which', 'guacd']):
@@ -103,11 +146,22 @@ def guacamole(user, vncpwd="raspberry", mysqlpwd="S3cur3Pa$$w0rd", guacpwd="P@s$
         print('desktop environment already installed')
     else:
         print(Colors.FAIL + 'ERROR: no desktop environment installed (xfce or pixel)')
-    
+
     vncserver(user, vncpwd, display, definition)
 
 
-def vncserver(user, vncpwd, display, definition):
+def vncserver(user: str, vncpwd: str, display: str, definition: str):
+    """Install requirements to create vncserver and setup service to start it at boot up.
+
+    Args:
+        user: User which use VNC server on his configuration path /home/{user}/.
+        vncpwd: Required password to configure VNC. Password stored in /home/{user}/.vnc/passwd.
+        display: Display identifier (e.g :1).
+        definition: Definition of the display.
+
+    Returns: None.
+
+    """
     print('\n== VNCSERVER SERVICE INSTALLATION ==\n')
     if not "tigervnc" in os.popen('dpkg -l | grep vnc').read().strip():  # todo: the right way ?
         print(Colors.RESET + '\n no vncserver installed. Installing TigerVNC... \n')
@@ -136,11 +190,31 @@ def vncserver(user, vncpwd, display, definition):
 
 
 def reverse_proxy():
+    """Reverse proxy configuration.
+    Todo:
+        * setup reverse proxy if user want"""
     print('setup reverse proxy if user want it')
 
 
 def test(user, vncpasswd="raspberry", mysqlpasswd="S3cur3Pa$$w0rd", guacpasswd="P@s$W0rD", display=':1',
          definition='1200x800'):
+    """Guacamole parameters test.
+
+    Args:
+        user: Name of user allowed to install and run guacamole.
+        vncpwd: Password for VNC session.
+        mysqlpwd: Password for MySQL server.
+        guacpwd: Password required by the Guacamole's installation.
+        display: Display identifier (e.g :1).
+        definition: Definition of the display.
+
+    Todo:
+        * use it inside unit tests
+        * return all values as map (and exit code 0 ?)
+
+    Returns: None
+
+    """
     print('user => ', user)
     print('vncpwd => ', vncpasswd)
     print('mysqlpwd => ', mysqlpasswd)
@@ -149,7 +223,22 @@ def test(user, vncpasswd="raspberry", mysqlpasswd="S3cur3Pa$$w0rd", guacpasswd="
     print('definition => ', definition)
 
 
-def create_service(service_name, path, desc, start, stop='', user='', pre='', post=''):
+def create_service(service_name: str, path: str, desc: str, start: str, stop='', user='', pre='', post=''):
+    """System service creation template.
+
+    Args:
+        service_name: Name of new created service.
+        path: Path of executable.
+        desc: Description of the service.
+        start: When script starts.
+        stop: When script is stopped.
+        user: Deprecated.
+        pre: Script executed before initialization of this service.
+        post: Script executed after initialization of this service.
+
+    Returns: None.
+
+    """
     out_vnc = open(f"{path}coddemanager-{service_name}.service", "w")
     line_pre = f"ExecStartPre={pre}" if pre else ''
     line_post = f"ExecStartPost={post}" if post else ''
@@ -182,23 +271,15 @@ WantedBy=multi-user.target"""
     os.system(f"sudo systemctl start coddemanager-{service_name}.service")
     os.system(f"sudo systemctl enable coddemanager-{service_name}.service")
     os.system(f"sudo systemctl status coddemanager-{service_name}.service --no-pager --full")
-    
-    
-def crontask(cmd):
-    if not 'crontab' in os.popen('ls /etc/ | grep crontab').read():
-        print('Installing crontab')
-        os.system('sudo apt install cron')
-    if 'no crontab' in os.popen('sudo crontab -l > /tmp/coddemanager_tmp_cron').read():
-        print('sudo crontab comments will be erased')
-    os.system('cat /tmp/coddemanager_tmp_cron')
-    os.system('sed -e "s/^M//" /tmp/coddemanager_tmp_cron')
-    out = open("/tmp/coddemanager_tmp_cron", "a")
-    out.write('@reboot ' + cmd.strip() + '\n')
-    out.close()
-    os.system('sudo crontab /tmp/coddemanager_tmp_cron')
 
 
-def dashboard(username):
+def dashboard():
+    """Install dashboard as service to start at boot up.
+
+    Returns: None.
+
+    """
+
     print('dashboard as a service')
     create_service(
         "dashboard",
@@ -206,10 +287,15 @@ def dashboard(username):
         "CODDE Manager - dashboard",
         start="/usr/bin/coddemanager -r dashboard"
     )
-    # crontask("python /home/pi/coddemanager/main.py -r dashboard")  # todo: remplacer par vrai script
 
 
-def w_keyboard(username):
+def w_keyboard():
+    """Install wireless keyboard as service to start at boot up.
+
+        Returns: None.
+
+        """
+
     print('w-keyboard as a service')
     create_service(
         "w-keyboard",

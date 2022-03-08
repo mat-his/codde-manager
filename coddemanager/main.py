@@ -54,10 +54,10 @@ def main():
             install.test(user, vncpwd, mysqlpwd, guacpwd, display, definition)
         if args.installation == 'dashboard':
             # arg_checker(args.user, 'missing required argument [--user USER]')
-            install.dashboard(args.user)
+            install.dashboard()
         if args.installation == 'w-keyboard':
             # arg_checker(args.user, 'missing required argument [--user USER]')
-            install.w_keyboard(args.user)
+            install.w_keyboard()
         if args.installation == 'vncserver':
             arg_checker(args.user, 'missing required argument [--user USER]')
             user = args.user
