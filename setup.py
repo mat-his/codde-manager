@@ -15,7 +15,7 @@ setup(
         'console_scripts': ['coddemanager=coddemanager.main:main']
     },
     data_files=[
-        ('share/applications/', ['coddemanager.desktop'])
+        ('share/applications/', ['codde-manager.desktop'])
         # icon
     ],
     classifiers=[
