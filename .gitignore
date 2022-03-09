@@ -7,4 +7,5 @@
 /debian/codde_manager/
 /dist/
 /coddemanager.egg-info/
+/.idea/
 /.src/
